@@ -120,23 +120,28 @@ const Game = () => {
 
     const cellStyle = {
       backgroundColor: color,
-      boxShadow: (hasRowPenalty || hasColPenalty || hasAdjacentPenalty || hasColorPenalty)
-        ? 'inset 0 0 0 3px #ff0000'
-        : undefined,
+      position: 'relative' as const,
     };
+
+    const content = isQueenPlaced && (
+      <div className={styles.queen}>
+        <Crown fill={finished ? '#fff' : '#000'} />
+      </div>
+    );
+
+    const overlay = (hasRowPenalty || hasColPenalty || hasAdjacentPenalty || hasColorPenalty) && (
+      <div className={styles.penaltyOverlay} />
+    );
 
     return (
       <div
-        onClick={() => handleCellClick(row, col)}
         key={`${row}-${col}`}
-        className={styles.cell}
         style={cellStyle}
+        className={styles.cell}
+        onClick={() => handleCellClick(row, col)}
       >
-        {isQueenPlaced && (
-          <div className={styles.queen}>
-            <Crown fill={finished ? '#fff' : '#000'} />
-          </div>
-        )}
+        {overlay}
+        {content}
       </div>
     );
   }
