@@ -118,14 +118,16 @@ const Game = () => {
     );
     const hasColorPenalty = penaltyColor.includes(color);
 
+    const backgroundColor = (finished ) ? '#000' : color;
+    
     const cellStyle = {
-      backgroundColor: color,
+      backgroundColor: backgroundColor,
       position: 'relative' as const,
     };
 
     const content = isQueenPlaced && (
       <div className={styles.queen}>
-        <Crown fill={finished ? '#fff' : '#000'} />
+        <Crown fill={finished ? 'url(#gradStroke)' : '#000'} />
       </div>
     );
 
